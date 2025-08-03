@@ -1,0 +1,48 @@
+package de.mwelle.backend.logic;
+
+import de.mwelle.backend.dto.WorkingTimeDto;
+import de.mwelle.backend.persitence.WorkingTime;
+import de.mwelle.backend.service.WorkingTimeService;
+import javax.annotation.processing.Generated;
+
+@Generated(
+    value = "org.mapstruct.ap.MappingProcessor",
+    date = "2025-08-03T20:22:05+0200",
+    comments = "version: 1.5.5.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.14.3.jar, environment: Java 21.0.8 (Eclipse Adoptium)"
+)
+public class WorkingTimeMapperImpl extends WorkingTimeMapper {
+
+    @Override
+    public WorkingTime toEntity(WorkingTimeDto workingTimeDto, WorkingTimeService workingTimeService) {
+        if ( workingTimeDto == null && workingTimeService == null ) {
+            return null;
+        }
+
+        WorkingTime workingTime = new WorkingTime();
+
+        if ( workingTimeDto != null ) {
+            workingTime.setStartTime( workingTimeDto.getStartTime() );
+            workingTime.setEndTime( workingTimeDto.getEndTime() );
+            workingTime.setDate( workingTimeDto.getDate() );
+        }
+        workingTime.setEmployee( mapEmployeeFromName(workingTimeDto.getName(), workingTimeService) );
+
+        return workingTime;
+    }
+
+    @Override
+    public WorkingTimeDto toDto(WorkingTime workingTime) {
+        if ( workingTime == null ) {
+            return null;
+        }
+
+        WorkingTimeDto workingTimeDto = new WorkingTimeDto();
+
+        workingTimeDto.setName( mapEmployeeToName( workingTime.getEmployee() ) );
+        workingTimeDto.setDate( workingTime.getDate() );
+        workingTimeDto.setStartTime( workingTime.getStartTime() );
+        workingTimeDto.setEndTime( workingTime.getEndTime() );
+
+        return workingTimeDto;
+    }
+}

@@ -1,0 +1,35 @@
+
+<main class="main">
+  <div class="content">
+      <mat-form-field floatLabel="auto">
+        <mat-label>Name</mat-label>
+        <input matInput [(ngModel)]="name">
+      </mat-form-field>
+      <mat-form-field floatLabel="auto">
+        <mat-label>Datum</mat-label>
+        <input matInput [matDatepicker]="picker" [(ngModel)]="selectedDate">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field floatLabel="auto">
+        <mat-label>Start-Zeit</mat-label>
+        <input matInput type="time" [(ngModel)]="startTime">
+      </mat-form-field>
+      <mat-form-field floatLabel="auto">
+        <mat-label>End-Zeit</mat-label>
+        <input matInput type="time" [(ngModel)]="endTime">
+      </mat-form-field>
+    </div>
+  <button mat-button (click)="sendData()">Senden</button>
+  @if (times() && times().length > 0) {
+    @for (time of times(); track time) {
+      <div class="time">
+        <p>{{ time.name }}</p>
+        <p>{{ time.date}}</p>
+        <p>{{ time.startTime}} - {{ time.endTime}}</p>
+      </div>
+    }
+  }
+</main>
+<router-outlet />
